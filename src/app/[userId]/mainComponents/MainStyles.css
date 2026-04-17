@@ -1,0 +1,73 @@
+/* Контейнер списка чатов */
+.chatList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: transparent;
+    padding: 20px;
+}
+
+
+.chat {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    gap: 15px;
+}
+
+.chat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.2);
+    background-color: #f0fdf4;
+}
+
+/* Аватарка - слева, фиксированный размер */
+.chat-avatar {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    border: 2px solid #0f766e;
+}
+
+.chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Информация о чате - справа от аватарки */
+.chat-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.nameChat {
+    font-weight: 700;
+    font-size: 17px;
+    color: #134e4a;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lastMessage {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
