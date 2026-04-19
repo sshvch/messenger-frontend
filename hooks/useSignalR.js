@@ -58,7 +58,7 @@ export function useSignalR(chatId, userId, initialMessages = []) {
     if (!chatIdNumber) return;
 
     const hub = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:5000/chathub')
+      .withUrl(`${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/chathub`)
       .withAutomaticReconnect()
       .build();
     
