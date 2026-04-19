@@ -6,7 +6,7 @@ export function useSignalR(chatId, userId, initialMessages = []) {
   const [messages, setMessages] = useState(initialMessages);
   const [isConnected, setIsConnected] = useState(false);
   const connection = useRef(null);
-  const pendingMessages = useRef([]);  // ← очередь сообщений
+  const pendingMessages = useRef([]); 
   
   const chatIdNumber = chatId ? Number(chatId) : null;
   const userIdNumber = userId ? Number(userId) : null;
@@ -20,25 +20,19 @@ export function useSignalR(chatId, userId, initialMessages = []) {
     
     // Если не подключены - кладём в очередь
     if (!isConnected || !connection.current) {
-      console.log('Нет соединения, сообщение в очередь');
       pendingMessages.current.push(messageToSend);
       return false;
     }
     
-    // Отправляем
     try {
       await connection.current.invoke('SendMessage', chatIdNumber, userIdNumber, messageToSend);
       return true;
-    } catch (error) {
-      console.error('Ошибка отправки:', error);
-      return false;
-    }
+    } catch (error) {return false;}
   };
   
   // Отправка накопленных сообщений при подключении
   useEffect(() => {
     if (isConnected && pendingMessages.current.length > 0) {
-      console.log('Отправка накопленных сообщений:', pendingMessages.current.length);
       const messagesToSend = [...pendingMessages.current];
       pendingMessages.current = [];
       
@@ -46,8 +40,7 @@ export function useSignalR(chatId, userId, initialMessages = []) {
         try {
           await connection.current.invoke('SendMessage', chatIdNumber, userIdNumber, msg);
         } catch (error) {
-          console.error('Ошибка отправки накопленного сообщения:', error);
-          pendingMessages.current.push(msg); // возвращаем в очередь
+          pendingMessages.current.push(msg); 
         }
       });
     }

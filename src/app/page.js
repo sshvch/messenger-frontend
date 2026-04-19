@@ -25,7 +25,6 @@ export default function Log() {
         }
         setLoading(false);
     }
-
     function PushToRegistration() {
         router.push('/registor');
     }

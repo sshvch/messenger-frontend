@@ -49,9 +49,7 @@ async fetchUser(userId) {
     const res = await fetch(`${this.baseURL}/users/create`,option)
     return res;
   }
-async CreateChat(user1Id, user2Id) {
-    console.log('Создание чата для:', user1Id, user2Id);
-    
+async CreateChat(user1Id, user2Id) {   
     const option = {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -61,10 +59,7 @@ async CreateChat(user1Id, user2Id) {
                 User2Id: Number(user2Id)
             
         })
-    }
-    
-    console.log('Отправляю:', option.body);
-    
+    }  
     const res = await fetch(`${this.baseURL}/chats/create`, option);
     
     return res;

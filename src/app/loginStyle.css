@@ -91,13 +91,13 @@
 
 .error-message {
     background-color: #f0fdf4;
-    color: #166534;
+    color: #651616;
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 20px;
     font-size: 14px;
     text-align: center;
-    border-left: 4px solid #22c55e;
+    border-left: 4px solid #bf5068;
 }
 
 .register-link {
