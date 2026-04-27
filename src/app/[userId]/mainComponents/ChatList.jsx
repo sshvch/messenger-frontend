@@ -1,12 +1,13 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './MainStyles.css';
 import { api } from '../../../../services/api';
 
-export function ChatList({ chats, users, userId }) {  // ← Убедитесь, что есть export
+export function ChatList({ chats, users, userId }) {  
     const router = useRouter();
     const [avatars, setAvatars] = useState({});
+    const loadedRef = useRef(false); // флаг, чтобы загрузить только один раз
     
     const safeChats = Array.isArray(chats) ? chats : [];
     
@@ -16,7 +17,13 @@ export function ChatList({ chats, users, userId }) {  // ← Убедитесь,
         return dateB - dateA;
     });
     
+    // Загружаем аватарки ТОЛЬКО ОДИН РАЗ
     useEffect(() => {
+        if (loadedRef.current) return; // если уже загружали, выходим
+        if (sortedChats.length === 0) return;
+        
+        loadedRef.current = true;
+        
         async function loadAvatars() {
             const avatarMap = {};
             for (const chat of sortedChats) {
@@ -37,10 +44,9 @@ export function ChatList({ chats, users, userId }) {  // ← Убедитесь,
             setAvatars(avatarMap);
         }
         
-        if (sortedChats.length > 0) {
-            loadAvatars();
-        }
+        loadAvatars();
         
+        // Очистка URL при размонтировании
         return () => {
             Object.values(avatars).forEach(url => {
                 if (url && url.startsWith('blob:')) {
@@ -48,7 +54,7 @@ export function ChatList({ chats, users, userId }) {  // ← Убедитесь,
                 }
             });
         };
-    }, [sortedChats, userId]);
+    }, []); // ← ПУСТОЙ МАССИВ = ЗАПУСКАЕМ ТОЛЬКО 1 РАЗ
     
     function Transition(chat) {
         router.push(`/${userId}/${chat.Id}`);

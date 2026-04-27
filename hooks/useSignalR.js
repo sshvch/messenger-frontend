@@ -49,11 +49,10 @@ export function useSignalR(chatId, userId, initialMessages = []) {
   // Подключение к чату
   useEffect(() => {
     if (!chatIdNumber) return;
-
-    const hub = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_API_URL.replace('/api', '')}/chathub`)
-      .withAutomaticReconnect()
-      .build();
+const hub = new signalR.HubConnectionBuilder()
+  .withUrl(`${(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace('/api', '')}/chathub`)
+  .withAutomaticReconnect()
+  .build();
     
     connection.current = hub;
     

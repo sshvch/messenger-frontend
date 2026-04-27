@@ -3,6 +3,29 @@
 class ApiService {
   baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
+
+async GetStats(){
+    const res = await fetch(`${this.baseURL}/stats/day`);
+    return res.json();
+  }
+
+async TrackVisit(userId, userName) {
+    const option = {
+        method: "POST",  
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            UserId: userId,     
+            UserName: userName    
+        })
+    };
+    try {
+     await fetch(`${this.baseURL}/stats/visit`, option);  
+    }
+    catch{console.log('Ошибка дополнения данных статистики')}
+}
+
   async fetchChats(userId) {
     const res = await fetch(`${this.baseURL}/chats/${userId}`);
     return res.json();

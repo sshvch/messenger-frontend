@@ -5,22 +5,23 @@ import './styles.css';
 export default function MessageInput({ senderId, chatId, onSendMessage }) {
     const [text, setText] = useState('');
     const [isSending, setIsSending] = useState(false);
-
+    const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace('/api', '');
     const handleSend = async () => {
         if (!text.trim() || isSending) return;
 
         setIsSending(true);
         
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/send`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chatId: Number(chatId),
-                    senderId: senderId,
-                    text: text
-                })
-            });
+const response = await fetch(`http://localhost:5000/api/messages/send`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    chatId: Number(chatId),
+    senderId: senderId,
+    text: text
+  })
+});
+
 
             if (response.ok) {
                 try {
