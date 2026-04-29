@@ -5,7 +5,7 @@ import './styles.css';
 export default function MessageInput({ senderId, chatId, onSendMessage }) {
     const [text, setText] = useState('');
     const [isSending, setIsSending] = useState(false);
-    const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace('/api', '');
+    const apiBase = (process.env.NEXT_PUBLIC_API_URL).replace('/api', '');
     const handleSend = async () => {
         if (!text.trim() || isSending) return;
 
