@@ -12,7 +12,7 @@ export default function MessageInput({ senderId, chatId, onSendMessage }) {
         setIsSending(true);
         
         try {
-const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/messages/send`, {
+const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/send`, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
